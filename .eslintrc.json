@@ -5,7 +5,7 @@
     },
     "extends": [
         "eslint:recommended",
-        "plugin:react/all",
+        "plugin:react/recommended",
         "plugin:react/jsx-runtime",
         "plugin:react-hooks/recommended",
         "plugin:jsx-a11y/recommended",
@@ -23,5 +23,7 @@
         "react-hooks"
     ],
     "rules": {
+        "react/jsx-no-literals": "off",
+        "react/jsx-max-depth": "off"
     }
 }
