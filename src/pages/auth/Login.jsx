@@ -19,6 +19,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 //hooks
 import useResponsive from '../../hooks/useResponsive.js';
+import useAuth from '../../hooks/useAuth.js';
 
 const RootStyle = styled('div')(({ theme }) => ({
   padding: '0 18px',
@@ -49,6 +50,7 @@ const FormControlStyled = styled(FormControl)(() => ({
 
 function Login() {
   const mdUp = useResponsive('up', 'md');
+  const { login } = useAuth();
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -58,6 +60,10 @@ function Login() {
 
   function handleMouseDownPassword(event) {
     event.preventDefault();
+  }
+
+  function onSubmit() {
+    login();
   }
 
   return (
@@ -106,7 +112,7 @@ function Login() {
               variant="outlined"
             />
           </FormControlStyled>
-          <LoadingButton loading={true}>Submit</LoadingButton>
+          <LoadingButton onClick={onSubmit}>Submit</LoadingButton>
         </ContentStyle>
       </Container>
     </RootStyle>

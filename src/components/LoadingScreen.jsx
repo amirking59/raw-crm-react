@@ -4,8 +4,8 @@ import { m } from 'framer-motion';
 import { alpha, styled } from '@mui/material/styles';
 import { Box } from '@mui/material';
 //
-import Logo from './Logo';
-import ProgressBar from './ProgressBar';
+import Logo from './Logo.jsx';
+import ProgressBar from './ProgressBar.jsx';
 
 // ----------------------------------------------------------------------
 
