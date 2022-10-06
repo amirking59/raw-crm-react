@@ -1,25 +1,20 @@
-import { useState } from 'react';
+import { useEffect } from 'react';
 
 // @mui
 import { styled } from '@mui/material/styles';
 import { LoadingButton } from '@mui/lab';
-import {
-  Stack,
-  Box,
-  Typography,
-  Container,
-  InputAdornment,
-  IconButton,
-  FormControl,
-  InputLabel,
-  OutlinedInput,
-  Card,
-} from '@mui/material';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { Stack, Box, Typography, Container, Card } from '@mui/material';
+import Grid from '@mui/material/Unstable_Grid2';
+
+import { Formik, Form, useFormikContext } from 'formik';
 
 //hooks
 import useResponsive from '../../hooks/useResponsive.js';
 import useAuth from '../../hooks/useAuth.js';
+
+// components
+import TextInput from '../../components/form/TextInput.jsx';
+import PasswordInput from '../../components/form/PasswordInput.jsx';
 
 const RootStyle = styled('div')(({ theme }) => ({
   padding: '0 18px',
@@ -44,27 +39,46 @@ const SectionStyle = styled(Card)(({ theme }) => ({
   margin: theme.spacing(2, 0, 2, 2),
 }));
 
-const FormControlStyled = styled(FormControl)(() => ({
-  width: '100%',
-}));
+function LoginFormFields() {
+  const { setFieldError } = useFormikContext();
 
-function Login() {
-  const mdUp = useResponsive('up', 'md');
+  useEffect(() => {
+    setFieldError('email', 'test');
+  }, []);
+
+  return (
+    <Form>
+      <Grid spacing={2} container>
+        <Grid md={6} xs={12}>
+          <TextInput name="email" label="Email" />
+        </Grid>
+        <Grid md={6} xs={12}>
+          <PasswordInput name="password" label="Password" />
+        </Grid>
+        <Grid textAlign="center" justifyContent="center" xs={12}>
+          <LoadingButton type="submit">Submit</LoadingButton>
+        </Grid>
+      </Grid>
+    </Form>
+  );
+}
+
+function LoginForm() {
   const { login } = useAuth();
-
-  const [showPassword, setShowPassword] = useState(false);
-
-  function handleClickShowPassword() {
-    setShowPassword(!showPassword);
-  }
-
-  function handleMouseDownPassword(event) {
-    event.preventDefault();
-  }
 
   function onSubmit() {
     login();
   }
+
+  return (
+    <Formik initialValues={{ email: '', password: '1' }} onSubmit={onSubmit}>
+      <LoginFormFields />
+    </Formik>
+  );
+}
+
+function Login() {
+  const mdUp = useResponsive('up', 'md');
 
   return (
     <RootStyle>
@@ -86,33 +100,7 @@ function Login() {
               <Typography sx={{ color: 'text.secondary' }}>Enter your details below.</Typography>
             </Box>
           </Stack>
-          <FormControlStyled>
-            <InputLabel htmlFor="outlined-adornment-email">Email</InputLabel>
-            <OutlinedInput id="outlined-adornment-email" label="Email" sx={{ marginBottom: 3 }} variant="outlined" />
-          </FormControlStyled>
-          <FormControlStyled>
-            <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-            <OutlinedInput
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    edge="end"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
-              id="outlined-adornment-password"
-              label="Password"
-              sx={{ marginBottom: 4 }}
-              type={showPassword ? 'text' : 'password'}
-              variant="outlined"
-            />
-          </FormControlStyled>
-          <LoadingButton onClick={onSubmit}>Submit</LoadingButton>
+          <LoginForm />
         </ContentStyle>
       </Container>
     </RootStyle>
