@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { m } from 'framer-motion';
+import { motion } from 'framer-motion';
 // @mui
 import { alpha, styled } from '@mui/material/styles';
 import { Box } from '@mui/material';
@@ -11,7 +11,7 @@ import ProgressBar from './ProgressBar.jsx';
 
 const RootStyle = styled('div')(({ theme }) => ({
   right: 0,
-  bottom: 0,
+  top: 0,
   zIndex: 99999,
   width: '100%',
   height: '100%',
@@ -35,7 +35,7 @@ export default function LoadingScreen({ isDashboard, ...other }) {
 
       {!isDashboard && (
         <RootStyle {...other}>
-          <m.div
+          <motion.div
             initial={{ rotateY: 0 }}
             animate={{ rotateY: 360 }}
             transition={{
@@ -46,10 +46,10 @@ export default function LoadingScreen({ isDashboard, ...other }) {
             }}
           >
             <Logo disabledLink sx={{ width: 64, height: 64 }} />
-          </m.div>
+          </motion.div>
 
           <Box
-            component={m.div}
+            component={motion.div}
             animate={{
               scale: [1.2, 1, 1, 1.2, 1.2],
               rotate: [270, 0, 0, 270, 270],
@@ -67,7 +67,7 @@ export default function LoadingScreen({ isDashboard, ...other }) {
           />
 
           <Box
-            component={m.div}
+            component={motion.div}
             animate={{
               scale: [1, 1.2, 1.2, 1, 1],
               rotate: [0, 270, 270, 0, 0],

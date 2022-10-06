@@ -90,7 +90,7 @@ function AuthProvider({ children }) {
                 user,
               },
             });
-          }, 3000);
+          }, 10000);
         } else {
           setTimeout(() => {
             dispatch({
