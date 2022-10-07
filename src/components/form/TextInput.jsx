@@ -9,7 +9,7 @@ function TextInput({ name, label, ...other }) {
   return (
     <FormControl style={{ width: '100%' }} {...other}>
       <InputLabel htmlFor={name}>{label}</InputLabel>
-      <OutlinedInput error={meta.touched && meta.error} {...field} id={name} label={label} variant="outlined" />
+      <OutlinedInput error={!!(meta.touched && meta.error)} {...field} id={name} label={label} variant="outlined" />
       <FormHelperText sx={{ height: 20 }} error={true}>
         {meta.touched && meta.error ? meta.error : ''}
       </FormHelperText>

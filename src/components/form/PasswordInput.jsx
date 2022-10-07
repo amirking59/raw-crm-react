@@ -23,7 +23,7 @@ function PasswordInput({ name, label, ...other }) {
       <InputLabel htmlFor={name}>{label}</InputLabel>
       <OutlinedInput
         {...field}
-        error={meta.touched && meta.error}
+        error={!!(meta.touched && meta.error)}
         endAdornment={
           <InputAdornment position="end">
             <IconButton
